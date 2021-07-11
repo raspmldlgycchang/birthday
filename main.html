@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>생일축하합니다</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./public/img/titleimage9.ico"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        @keyframes gradually{
+            0%{
+                opacity: 0;
+            }
+            30%{
+                opacity: 30%;
+            }
+            60%{
+                opacity: 60%;
+            }
+            90%{
+                opacity: 90%;
+            }
+            100%{
+                opacity: 100%;
+            }
+        }
+        .topleft{
+            content:"";
+            width:474px;
+            height: 521px;
+            position:static;
+            background-image: url('./public/img/ballon.png');
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+        .main{
+            content:"";
+            width:1000px;
+            height:500px;
+            position: relative;
+            left: 474px;
+            top: -521px;
+            background-image:url('./public/img/maincent.png');
+            background-size: 500px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+        }
+        .topright{
+            content:"";
+            width:474px;
+            height:521px;
+            position:relative;
+            left:1074px;
+            top: -1021px;
+            background-image: url('./public/img/ballon.png');
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+        h3{
+            font-family: dotum;
+        }
+    </style>
+</head>
+<body>
+    <div class="topleft"></div>
+    <div class="main"></div>
+    <div class="topright"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        let queue = [
+            function(){method1()},
+            //function(){method2()},
+        ];
+        function SerialCall(queue){
+            var d = $.Deferred().resolve();
+            while(queue.length>0){
+                d = d.then(queue.shift());
+            }
+        }
+        SerialCall(queue);
+        function method1(){
+            setTimeout(
+                function(){
+                    $('.topright').after('<button id="startBtn" type="button" style="animation: gradually 5s ease;">노래시작하기</button>')
+                    document.querySelector('button').setAttribute('style', 'background:linear-gradient(to top, #fff6b7, #f77c99, #6578f2, #c2ffd8);position:relative;left:700px;top:-1200px;');
+                    document.querySelector('#startBtn').addEventListener('click', function(){
+                        third();
+                    })
+                    second();
+                },
+                6000
+            );
+        }
+        function second(){
+            opengiftbox();
+        }
+        function opengiftbox(){
+            var table = "";
+            table += '<label id="opengiftbox">';
+            table += '<div id="divopengiftbox" style="position:relative;left:470px;top:-1100px;height:1500px;width:500px;border-radius:100px;margin-left:10px;margin-top:3px;margin-right:15px;border:8px solid rgba(70,43,1,1);background:#FF9999;">';//background:rgba(149, 89, 55, 1)
+            var htmladd = "";
+            htmladd += '<span style="position:relative;left:530px;"><img src="./public/img/beforeopening.png" width="350" height="250"/></span>';
+            table += htmladd;
+            table += '</div>';
+            table += '</label>';
+            $('button').after(table);
+            setTimeout(
+                function(){
+                    document.querySelector('span > img').setAttribute('src', './public/img/afteropening1.png');
+                    setTimeout(
+                        function(){
+                            var $r = $('<h6 style="position:relative;left:560px;top:-2700px;"><img src="./public/img/cake.png" width="350" height="250" id="cakeImg"/>');
+                            $r.insertAfter($('div#divopengiftbox'));
+                            setTimeout(
+                                function(){
+                                    var $r = $('<h3>&#x1f495;&#x1f495;생일 축하해 하나뿐인 내꼬오~&#x1f495;&#x1f495;</h3>');
+                                    $r.insertAfter($('img#cakeImg'));
+                                },
+                                0
+                            )
+                        },
+                        1000
+                    )
+                },
+                3000
+            )
+        }
+        function method2(){
+            setTimeout(
+                function(){
+                    $('#divopengiftbox').appendTo('<span><img/></span>');
+                    setTimeout(
+                        function(){
+                            firstDrawing();
+                        },
+                        1000
+                    );
+                },
+                16000
+            );
+        }
+        function changegiftbox(callbackFunc){
+            $('#divopengiftbox').appendTo('<span><img id="images"/></span>');
+            //$('#divopengiftbox').attr('style','position:relative;left:470px;top:-1100px;height:1500px;width:500px;border-radius:100px;margin-left:10px;margin-top:3px;margin-right:15px;border:8px solid #FF69b4;');
+            if(callbackFunc){
+                callbackFunc();
+            }
+        }
+        function firstDrawing(){
+            var image = document.querySelector('#images');
+            image.setAttribute('src', './public/img/beforeopening.png');
+            image.setAttribute('style', 'width:300px;height:450px;');
+            //secondDrawing();
+        }
+        function secondeDrawing(){
+
+        }
+        function third(){
+            var htmladd = `<h6 style="position:relative;top:-1400px;left:650px;"><audio src="./public/audio/Jingle Bells.mp3" controls></audio></h6>`;
+            $('#startBtn').after(htmladd);
+        }
+    </script>
+</body>
+</html>
